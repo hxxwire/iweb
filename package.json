@@ -1,0 +1,24 @@
+{
+  "name": "iweb_node",
+  "version": "1.0.0",
+  "description": "提供API的node后台",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hxxwire/iweb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hxxwire/iweb/issues"
+  },
+  "homepage": "https://github.com/hxxwire/iweb#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}
