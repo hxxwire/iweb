@@ -4,8 +4,11 @@ var app=express();
 app.listen(5050)
 //新浪云的Node服务器只能监听5050端口
 console.log('Server is listening 5050')
-
-
+//注册body-parser 为中间件
+app.use(bodyParser.json())
+//false 使用querystring来解析数据
+//true 使用qs
+app.use(bodyParser.urlencoded({ extended: false }));
 // 引入路由
 const teacherRouter=require("./route/teacher.js")
 //teacher/list  讲师列表
@@ -19,3 +22,5 @@ const courseRouter=require("./route/course.js")
 app.use('/courser',courseRouter)
 const indexRouter=require('./route/index.js')
 app.use('/',indexRouter)
+
+
