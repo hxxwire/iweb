@@ -17,10 +17,12 @@ const teacherRouter=require("./route/teacher.js")
 //teacherRouter 中的所有路由都会加上/teacher
 app.use('/teacher',teacherRouter)
 const userRouter=require("./route/user.js")
-app.use('/user',userRouter)
 const courseRouter=require("./route/course.js")
-app.use('/courser',courseRouter)
 const indexRouter=require('./route/index.js')
-app.use('/',indexRouter)
+const typeRouter=require('./route/type.js')
 
+app.use('/user',userRouter)
+app.use('/course',courseRouter)
+app.use('/',indexRouter)
+app.use('/type',typeRouter)
 
