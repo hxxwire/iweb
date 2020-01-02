@@ -32,7 +32,7 @@ router.get("/list",(req,res)=>{
        let total=result[0].num;
        let pageTotal=Math.ceil(total/pageSize)
 
-       if(typeId==0){
+       if(typeId<=0){
             //查询所有分类的课程总数
             var sql_limit=`SELECT * FROM course,teacher WHERE course.teacherId=teacher.tid LIMIT ${offset},${pageSize}`
         }else{
@@ -66,7 +66,7 @@ router.get("/list",(req,res)=>{
             })
             return
         }
-        let sql="SELECT * FROM course,teacher WHERE course.teacherID=teacher.tid AND course.cid="+obj.cid;
+        let sql="SELECT * FROM course,teacher WHERE course.teacherId=teacher.tid AND course.cid="+obj.cid;
         pool.query(sql,(err,result)=>{
             if(err) throw err
             res.json({
@@ -76,7 +76,24 @@ router.get("/list",(req,res)=>{
             })
         })
     })
-    
+    //获取最新课程接口
+    router.get('/newest',(req,res)=>{
+        var obj=req.query 
+        if(!obj.countNum){obj.countNum=4}
+        //查询最新课程就是按照课程id倒叙排列
+        let sql="SELECT cid,pic,price,title,tname FROM course,teacher WHERE course.teacherId=teacher.tid ORDER BY cid DESC  LIMIT ?"
+        pool.query(sql,[parseInt(obj.countNum)],(err,result)=>{
+            if(err)throw err
+            res.json({
+                code:200,
+                msg:"success",
+                data:result
+            })
+        })
+
+
+    })
+
     
 //模块导出
 module.exports=router;

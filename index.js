@@ -20,9 +20,16 @@ const userRouter=require("./route/user.js")
 const courseRouter=require("./route/course.js")
 const indexRouter=require('./route/index.js')
 const typeRouter=require('./route/type.js')
+const cartRouter=require('./route/cart.js')
+const favoriteRouter=require('./route/favorite.js')
+
+
 
 app.use('/user',userRouter)
 app.use('/course',courseRouter)
 app.use('/',indexRouter)
 app.use('/type',typeRouter)
+app.use('/cart',cartRouter)
+app.use('/favorite',favoriteRouter)
+
 

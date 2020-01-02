@@ -99,12 +99,12 @@ router.post("/login",(req,res)=>{
             msg:"upwd require"
         })
     }
-     let sql="SELECT * FROM user WHERE UNAME=? AND UPWD=?"
-
-    pool.query(sql,[obj.uname,obj.upwd],(err,result)=>{
+     let sql="SELECT * FROM user WHERE (UNAME=? AND UPWD=?) OR (phone=? AND upwd=?) LIMIT 1"
+//既可以用用户名页可以用邮箱登录
+    pool.query(sql,[obj.uname,obj.upwd,obj.uname,obj.upwd],(err,result)=>{
         if(err)throw err
         console.log(result)
-        if(!cresult[0]){
+        if(result[0]){
             res.json({
                 code:200,
                 msg:'登陆成功',
