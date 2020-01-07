@@ -72,7 +72,7 @@ router.get("/list",(req,res)=>{
             res.json({
                 code:'200',
                 msg:'success',
-                data:result
+                data:result[0]
             })
         })
     })
