@@ -16,6 +16,8 @@ router.post('/register',(req,res)=>{
             code:401,
             msg:"用户名不能为空"
         })
+        return 
+
     }
      //检测密码是否为空
      if(!obj.upwd){
@@ -23,6 +25,8 @@ router.post('/register',(req,res)=>{
             code:402,
             msg:"upwd require"
         })
+        return
+
     }
      //检测重复密码是否为空
      if(!obj.upwd2){
@@ -30,6 +34,8 @@ router.post('/register',(req,res)=>{
             code:403,
             msg:"upwd2 require"
         })
+        return
+
     }
      //检测两次密码是否一样
      if(obj.upwd2!=obj.upwd){
@@ -37,13 +43,18 @@ router.post('/register',(req,res)=>{
             code:404,
             msg:"两次输入的密码不一致"
         })
+        return
+
     }
      //检测手机号是否为空
      if(!obj.phone){
         res.json({
             code:405,
             msg:"手机号不能为空"
+
         })
+        return
+
     }
      //检测手机号合法性
     var phoneReg=/^0?(13[0-9]|15[012356789]|18[0236789]|14[57])[0-9]{8}$/
@@ -53,6 +64,7 @@ router.post('/register',(req,res)=>{
             code:406,
             msg:"手机号格式不对"
         })
+        return
     }   
 // 比较两次输入的密码如果不一致则不向下进行
 // 如果输入的密码一致就删掉upwd2
@@ -62,6 +74,8 @@ router.post('/register',(req,res)=>{
             code:201,
             msg:'密码不一致'
         })
+        return
+
     }else{
         delete obj.upwd2
          //防sql注册
@@ -91,6 +105,8 @@ router.post("/login",(req,res)=>{
             code:401,
             msg:"用户名不能为空"
         })
+        return
+
     }
      //检测密码是否为空
      if(!obj.upwd){
@@ -98,6 +114,7 @@ router.post("/login",(req,res)=>{
             code:402,
             msg:"upwd require"
         })
+        return
     }
      let sql="SELECT * FROM user WHERE (UNAME=? AND UPWD=?) OR (phone=? AND upwd=?) LIMIT 1"
 //既可以用用户名页可以用邮箱登录
@@ -127,7 +144,7 @@ router.post('/check_uname',(req,res)=>{
     console.log(obj)
     if(!obj.uname){
         res.json({code:300,msg:"用户名不能为空"})
-      
+        return
     }
     let uname=obj.uname
     let sql="SELECT count(*) as num FROM user WHERE UNAME=?"
@@ -167,11 +184,11 @@ router.post('/check_phone',(req,res)=>{
             res.json({
                 code:301,
                 msg:"手机号已经存在"
-            })
+            }) 
         }else{
             res.json({
                 code:200,
-                msg:"not exist"
+                msg:"not exist" 
             })
         }
     })

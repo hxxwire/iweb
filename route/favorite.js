@@ -12,26 +12,41 @@ router.post('/add',(req,res)=>{
         })
         return;
     }
-    console.log(obj)
-    var fTime = Math.ceil((new Date()).getTime()/1000)
-    let sql="INSERT INTO favorite VALUES(NULL,?,?,?)"
-    pool.query(sql,[obj.uid,obj.cid,fTime],(err,result)=>{
-        if(err) throw err
+    //根据uid ，cid 查询收藏夹表
+    // 如果记录不存在，则执行添加
+    // 如果记录已存在则返回code:201
+    let sql="SELECT count(*) as num  FROM favorite WHERE userId=? AND courseId=?"
+    pool.query(sql,[obj.uid,obj.cid],(err,result)=>{
         console.log(result)
-      let time=  Math.ceil(new Date().getTime()/1000)
-      console.log(time)
-        if(result.affectedRows>0){
+        if(result[0].num){
             res.json({
-                code:200,
-                msg:"success",
-                data:result.insertId
+                code:201,
+                msg:'favorite 已存在'
             })
+            return
         }else{
-            res.json({
-                code:303,
-                msg:"failed"
-            })
+            var fTime = Math.ceil((new Date()).getTime()/1000)
+            let sql="INSERT INTO favorite VALUES(NULL,?,?,?)"
+            pool.query(sql,[obj.uid,obj.cid,fTime],(err,result)=>{
+                if(err) throw err
+                console.log(result)
+            let time=  Math.ceil(new Date().getTime()/1000)
+            console.log(time)
+                if(result.affectedRows>0){
+                    res.json({
+                        code:200,
+                        msg:"add favorite success",
+                        data:result.insertId
+                    })
+                }else{
+                    res.json({
+                        code:303,
+                        msg:"failed"
+                    })
         }
+        
+     })
+    }
     })
 })
 //我的收藏-查询接口

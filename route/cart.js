@@ -42,7 +42,7 @@ router.post("/add",(req,res)=>{
             if(result.affectedRows >0){
                 res.json({
                     code:200,
-                    msg:'success',
+                    msg:'addCart success',
                 })
             }else{
                 res.json({
@@ -68,7 +68,7 @@ router.post("/list",(req,res)=>{
         if(result.length>0){
             res.json({
                 code:200,
-                msg:"suceess",  
+                msg:"查询，suceess",  
                 data:result
             })
         }else{
@@ -132,7 +132,7 @@ router.post('/empty',(req,res)=>{
             res.json({
                 code:200,
                 msg:'success',
-                data:result
+                data:result 
             }) 
          }else{
             res.json({
